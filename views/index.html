@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>ToDo</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        <style>
+            .addBtn {
+                cursor: pointer;
+                background-color:rgb(233, 100, 23);
+                color: white;
+                padding: 10px;
+                transition: 0.6s;
+            }  
+            .addBtn:hover {
+                background-color: #500505;
+            }
+            ul li {
+                cursor: pointer;
+                position: relative;
+                padding: 12px 8px 12px 40px;
+                background: rgba(238, 238, 238, 0.349);
+                font-size: 18px;
+                transition: 0.2s;
+
+                /* make the list items unselectable */
+                -webkit-user-select: none;
+                -moz-user-select: none;
+                -ms-user-select: none;
+                user-select: none;
+            }
+            ul li.checked {
+                background: #888;
+                color: #fff;
+                text-decoration: line-through;
+            }
+            ul li.checked::before {
+                content: '';
+                position: absolute;
+                border-color: #fff;
+                border-style: solid;
+                border-width: 0 2px 2px 0;
+                top: 10px;
+                left: 16px;
+                transform: rotate(45deg);
+                height: 15px;
+                width: 7px;
+            } 
+            
+        
+        </style>
+
+    </head>
+    <body>
+        <h1>ToDo list</h1>
+
+
+        <label for="task">Enter your task:</label>
+        <input type="text" id="task" name="task">
+        <span onclick="addTask()" class="addBtn">Submit</span>
+
+
+        <ul id="taskList">
+
+        </ul>
+
+
+        <script>
+            
+            // Create a "close" button and append it to each list item
+            var myNodelist = document.getElementsByTagName("LI");
+            var i;
+            for (i = 0; i < myNodelist.length; i++) {
+                var span = document.createElement("SPAN");
+                var txt = document.createTextNode("\u00D7");//cross sign
+                span.className = "close";
+                span.appendChild(txt);
+                myNodelist[i].appendChild(span);
+            }
+
+            // Click on a close button to hide the current list item
+            var close = document.getElementsByClassName("close");
+            var i;
+            for (i = 0; i < close.length; i++) {
+                close[i].onclick = function() {
+                    var div = this.parentElement;
+                    div.style.display = "none";
+                }
+            }
+
+            // Add a "checked" symbol when clicking on a list item
+            var list = document.querySelector('ul');
+            list.addEventListener('click', function(ev) {
+                if (ev.target.tagName === 'LI') {
+                    ev.target.classList.toggle('checked');
+                }
+            }, false);
+           
+
+            function addTask(){
+
+                var li = document.createElement("li");
+                var task = document.getElementById("task").value;
+                li.append(document.createTextNode(task));
+
+                if (task===''){alert("You must write something")}
+                else{
+                    document.getElementById("taskList").appendChild(li);
+                }
+                
+                document.getElementById("task").value = "";
+
+                var span = document.createElement("SPAN");
+                var txt = document.createTextNode("\u00D7");//cross sign
+                span.className = "close";
+                span.appendChild(txt);
+                li.appendChild(span);
+
+                for (i = 0; i < close.length; i++) {
+                    close[i].onclick = function() {
+                    var div = this.parentElement;
+                    div.style.display = "none";
+                    }
+                }
+           
+            }
+
+
+        </script>
+
+    </body>
+
+</html>
